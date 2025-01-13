@@ -12,6 +12,8 @@ The **P2000T Integrated Desktop Environment** is a comprehensive toolkit designe
 > the conversation and chat with the developers on our [Discord
 > server](https://discord.gg/YtzJTWYAxy).
 
+![screenshot of P2000T IDE](img/p2000t-ide-gui.jpg)
+
 ## Features
 
 - **Code Editor**
