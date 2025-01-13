@@ -65,14 +65,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     layout_hexinfo->addWidget(this->label_machine_code_data);
     layout_hexinfo->addWidget(this->progressbar_storage);
 
-    // rom gui
-    this->rom_widget = new RomWidget();
-    this->rom_widget->setVisible(false);
-
     // add widgets to middle level container
     layout_hexviewer->addWidget(widget_hexinfo);
     layout_hexviewer->addWidget(this->hex_viewer);
-    layout_hexviewer->addWidget(this->rom_widget);
     top_layout->addWidget(hex_viewer_container);
 
     //-------------------------------------------------------------------------
@@ -88,29 +83,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     this->add_groupbox_and_widget("Log", widget_right_screen_layout, this->log_viewer);
     top_layout->addWidget(widget_right_screen_container);
 
-    // serial interface
-    this->serial_widget = new SerialWidget();
-    this->add_groupbox_and_widget("P2000T Cartridge Interface", widget_right_screen_layout, this->serial_widget);
-    top_layout->addWidget(widget_right_screen_container);
-
-    // tl866 interface widget
-    this->tl866_widget = new TL866Widget();
-    this->add_groupbox_and_widget("TL866II+ Interface", widget_right_screen_layout, this->tl866_widget);
-    top_layout->addWidget(widget_right_screen_container);
-
     // set statusbar
     statusBar()->showMessage(tr("Ready"));
-
-    // connect signals and slots for serial interface
-    connect(this->serial_widget, SIGNAL(signal_emit_statusbar_message(const QString&)), statusBar(), SLOT(showMessage(const QString&)));
-    connect(this->serial_widget, SIGNAL(signal_data_read()), this, SLOT(slot_serial_parse_data()));
-    connect(this->serial_widget, SIGNAL(signal_get_data()), this, SLOT(slot_serial_assert_data()));
-
-    // connect signals and slots for TL866 widget
-    connect(this->tl866_widget, SIGNAL(signal_data_read()), this, SLOT(slot_tl866_parse_data()));
-    connect(this->tl866_widget, SIGNAL(signal_get_data()), this, SLOT(slot_tl866_assert_data()));
-    connect(this->tl866_widget, SIGNAL(signal_log_read()), this, SLOT(slot_tl866_parse_log()));
-
     this->build_menu();
 
     // set Window icon and title
@@ -204,12 +178,6 @@ void MainWindow::build_menu() {
     action_search->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_F));
     menuEdit->addAction(action_search);
     connect(action_search, SIGNAL(triggered()), this->search_widget, SLOT(show_search_widget()));
-
-    // analyze rom
-    QAction *action_analyze_fatp2000t = new QAction(menuEdit);
-    action_analyze_fatp2000t->setText(tr("Analyze as FAT-p2000t"));
-    menuEdit->addAction(action_analyze_fatp2000t);
-    connect(action_analyze_fatp2000t, SIGNAL(triggered()), this, SLOT(slot_analyze_fat_p2000t()));
 
     /*
      * Build menu
@@ -574,8 +542,6 @@ void MainWindow::slot_about() {
                         "tniASM, Minipro, and M2000.\n\n"
                         "tniASM Macro Assembler, which is developed by Patriek Lesparre."
                         "More information can be found at: http://tniasm.tni.nl/\n\n"
-                        "Minipro is an open source program for controlling the MiniPRO TL866xx series "
-                        "of chip programmers. More information can be found at: https://gitlab.com/DavidGriffith/minipro/\n\n"
                         "M2000 is an all-in-one P2000T emulator developed by Marcel de Kogel. More information"
                         "on this emulator can be found at: http://www.komkon.org/~dekogel/m2000.html");
     message_box.setIcon(QMessageBox::Information);
@@ -758,54 +724,6 @@ void MainWindow::delete_code_editor(CodeEditor*) {
 }
 
 /**
- * @brief Get data from SerialWidget class and parse to hex editor
- */
-void MainWindow::slot_serial_parse_data() {
-    auto data = this->serial_widget->get_data();
-    QHexView::DataStorageArray* mcode = new QHexView::DataStorageArray(data);
-    this->hex_viewer->setData(mcode);
-}
-
-/**
- * @brief Parse data from Hex Editor to SerialWidget class
- */
-void MainWindow::slot_serial_assert_data() {
-    auto data = this->hex_viewer->get_data();
-    this->serial_widget->set_flash_data(data);
-}
-
-/**
- * @brief Get data from SerialWidget class and parse to hex editor
- */
-void MainWindow::slot_tl866_parse_data() {
-    auto data = this->tl866_widget->get_data();
-    QHexView::DataStorageArray* mcode = new QHexView::DataStorageArray(data);
-    this->hex_viewer->setData(mcode);
-}
-
-/**
- * @brief Parse data from Hex Editor to SerialWidget class
- */
-void MainWindow::slot_tl866_assert_data() {
-    auto data = this->hex_viewer->get_data();
-    this->tl866_widget->set_flash_data(data);
-}
-
-/**
- * @brief Parse log from TL866 widget to log object
- */
-void MainWindow::slot_tl866_parse_log() {
-    auto log = this->tl866_widget->get_log_data();
-
-    // clean log
-    QString logstring(log);
-    logstring.remove("[K");
-
-    // send log to log object
-    this->log_viewer->setPlainText(logstring);
-}
-
-/**
  * @brief slot_search_code
  */
 void MainWindow::slot_search_code() {
@@ -851,13 +769,4 @@ void MainWindow::slot_toggletab_backward() {
 void MainWindow::slot_close_tab() {
     int curid = this->code_tabs->currentIndex();
     this->code_tabs->tabCloseRequested(curid);
-}
-
-/**
- * @brief Analyze hexcode as if it is FAT P2000T FAT
- */
-void MainWindow::slot_analyze_fat_p2000t() {
-    qDebug() << "Analyzing FAT P2000T";
-    this->rom_widget->set_data(this->hex_viewer->get_data());
-    this->rom_widget->setVisible(true);
 }

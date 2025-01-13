@@ -18,17 +18,15 @@
 #include <QList>
 #include <QTextCursor>
 #include <QTabWidget>
+#include <QProgressBar>
 
 #include "qhexview.h"
 #include "config.h"
 #include "threadcompile.h"
-#include "threadrun.h"
 #include "assemblyhighlighter.h"
-#include "serialwidget.h"
 #include "codeeditor.h"
-#include "tl866widget.h"
 #include "searchwidget.h"
-#include "romwidget.h"
+#include "threadrun.h"
 
 class MainWindow : public QMainWindow
 {
@@ -42,18 +40,11 @@ private:
 
     // hex widget / info
     QHexView* hex_viewer;
-    RomWidget* rom_widget;
     QLabel* label_machine_code_data;
     QProgressBar* progressbar_storage;
 
     // log
     QPlainTextEdit* log_viewer;
-
-    // serial interface
-    SerialWidget* serial_widget;
-
-    // TL866 interface
-    TL866Widget* tl866_widget;
 
     // other
     std::mutex compile_mutex;
@@ -181,31 +172,6 @@ private slots:
     void slot_run_complete(void*);
 
     /**
-     * @brief Get data from SerialWidget class and parse to hex editor
-     */
-    void slot_serial_parse_data();
-
-    /**
-     * @brief Parse data from Hex Editor to SerialWidget class
-     */
-    void slot_serial_assert_data();
-
-    /**
-     * @brief Get data from SerialWidget class and parse to hex editor
-     */
-    void slot_tl866_parse_data();
-
-    /**
-     * @brief Parse data from Hex Editor to SerialWidget class
-     */
-    void slot_tl866_assert_data();
-
-    /**
-     * @brief Parse log from TL866 widget to log object
-     */
-    void slot_tl866_parse_log();
-
-    /**
      * @brief slot_search_code
      */
     void slot_search_code();
@@ -230,10 +196,5 @@ private slots:
      * @brief Close tab
      */
     void slot_close_tab();
-
-    /**
-     * @brief Analyze hexcode as if it is FAT P2000T FAT
-     */
-    void slot_analyze_fat_p2000t();
 };
 #endif // MAINWINDOW_H

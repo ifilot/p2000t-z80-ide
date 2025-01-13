@@ -23,8 +23,8 @@
 
 #define PROGRAM_NAME "P2000T-ide"
 #define PROGRAM_VERSION "0.11.0"
-#define PROGRAM_ORGANIZATION "RETROZWICK"
-#define PROGRAM_DOMAIN "retrozwick.nl"
+#define PROGRAM_ORGANIZATION "philips-p2000t.nl"
+#define PROGRAM_DOMAIN "philips-p2000t.nl"
 
 #define UNUSED(x) (void)(x)
 

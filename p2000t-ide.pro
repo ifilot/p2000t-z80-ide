@@ -12,41 +12,25 @@ SOURCES += \
     src/dialogslotselection.cpp \
     src/assemblyhighlighter.cpp \
     src/codeeditor.cpp \
-    src/fileallocationtablep2000t.cpp \
-    src/flashthread.cpp \
     src/ioworker.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
     src/qhexview.cpp \
-    src/readthread.cpp \
-    src/romwidget.cpp \
     src/searchwidget.cpp \
-    src/serial_interface.cpp \
-    src/serialwidget.cpp \
     src/threadcompile.cpp \
-    src/threadrun.cpp \
-    src/threadtl866.cpp \
-    src/tl866widget.cpp
+    src/threadrun.cpp
 
 HEADERS += \
     src/dialogslotselection.h \
     src/assemblyhighlighter.h \
     src/codeeditor.h \
     src/config.h \
-    src/fileallocationtablep2000t.h \
-    src/flashthread.h \
     src/ioworker.h \
     src/mainwindow.h \
     src/qhexview.h \
-    src/readthread.h \
-    src/romwidget.h \
     src/searchwidget.h \
-    src/serial_interface.h \
-    src/serialwidget.h \
     src/threadcompile.h \
-    src/threadrun.h \
-    src/threadtl866.h \
-    src/tl866widget.h
+    src/threadrun.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

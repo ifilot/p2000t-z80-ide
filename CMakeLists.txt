@@ -27,21 +27,13 @@ add_executable(p2000t-ide
     src/dialogslotselection.cpp
     src/assemblyhighlighter.cpp
     src/codeeditor.cpp
-    src/fileallocationtablep2000t.cpp
-    src/flashthread.cpp
     src/ioworker.cpp
     src/main.cpp
     src/mainwindow.cpp
     src/qhexview.cpp
-    src/readthread.cpp
-    src/romwidget.cpp
     src/searchwidget.cpp
-    src/serial_interface.cpp
-    src/serialwidget.cpp
     src/threadcompile.cpp
     src/threadrun.cpp
-    src/threadtl866.cpp
-    src/tl866widget.cpp
     resources.qrc
 )
 
