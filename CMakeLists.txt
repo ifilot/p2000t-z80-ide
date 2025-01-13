@@ -27,7 +27,6 @@ add_executable(p2000t-ide
     src/dialogslotselection.cpp
     src/assemblyhighlighter.cpp
     src/codeeditor.cpp
-    src/ioworker.cpp
     src/main.cpp
     src/mainwindow.cpp
     src/qhexview.cpp

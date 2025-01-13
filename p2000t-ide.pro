@@ -12,7 +12,6 @@ SOURCES += \
     src/dialogslotselection.cpp \
     src/assemblyhighlighter.cpp \
     src/codeeditor.cpp \
-    src/ioworker.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
     src/qhexview.cpp \
@@ -25,7 +24,6 @@ HEADERS += \
     src/assemblyhighlighter.h \
     src/codeeditor.h \
     src/config.h \
-    src/ioworker.h \
     src/mainwindow.h \
     src/qhexview.h \
     src/searchwidget.h \

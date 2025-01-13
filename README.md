@@ -7,6 +7,11 @@
 
 The **P2000T Integrated Desktop Environment** is a comprehensive toolkit designed for developers and enthusiasts working with the **P2000T** platform. This environment combines a suite of essential tools—an editor, a compiler, and an emulator—into a unified and user-friendly interface.
 
+> [!TIP] 
+> Have questions or comments about the **P2000T Integrated Desktop Environment**? Join
+> the conversation and chat with the developers on our [Discord
+> server](https://discord.gg/YtzJTWYAxy).
+
 ## Features
 
 - **Code Editor**
