@@ -8,12 +8,9 @@
 The **P2000T Integrated Desktop Environment** is a comprehensive toolkit designed for developers and enthusiasts working with the **P2000T** platform. This environment combines a suite of essential tools—an editor, a compiler, and an emulator—into a unified and user-friendly interface.
 
 > [!TIP] 
-> Download the latest Windows 64-bit installer [via this link](https://github.com/ifilot/p2000t-z80-ide/releases/latest/download/p2000t-ide-installer-win64.exe).
-
-> [!TIP] 
-> Have questions or comments about the **P2000T Integrated Desktop Environment**? Join
-> the conversation and chat with the developers on our [Discord
-> server](https://discord.gg/YtzJTWYAxy).
+> * Download the latest Windows 64-bit installer [via this link](https://github.com/ifilot/p2000t-z80-ide/releases/latest/download/p2000t-ide-installer-win64.exe).
+> * Have questions or comments about the **P2000T Integrated Desktop Environment**? Join
+>   the conversation and chat with the developers on our [Discord server](https://discord.gg/YtzJTWYAxy).
 
 ![screenshot of P2000T IDE](img/p2000t-ide-gui.jpg)
 
