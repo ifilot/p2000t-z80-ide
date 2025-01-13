@@ -53,12 +53,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-# add libraries
-win32 {
-    INCLUDEPATH +=  "D:\PROGRAMMING\LIBS\boost-1.74.0-win-x64\include"
-    Debug:LIBS +=   "-LD:\PROGRAMMING\LIBS\boost-1.74.0-win-x64\lib" -lboost_date_time-vc142-mt-gd-x64-1_74
-    Release:LIBS +=   "-LD:\PROGRAMMING\LIBS\boost-1.74.0-win-x64\lib" -lboost_date_time-vc142-mt-x64-1_74
-}
-
 RESOURCES += \
     resources.qrc

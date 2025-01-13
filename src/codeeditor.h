@@ -3,8 +3,10 @@
 
 #include <QPlainTextEdit>
 #include <QDebug>
-#include <QShortCut>
+#include <QShortcut>
 #include <QTabWidget>
+#include <QPainter>
+#include <QTextBlock>
 
 QT_BEGIN_NAMESPACE
 class QPaintEvent;

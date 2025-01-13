@@ -35,7 +35,7 @@ SerialInterface::SerialInterface(const std::string& _portname, int _baudrate) {
  */
 void SerialInterface::open_port() {
     if(this->portname.size() == 0) {
-        throw std::exception("No port has been set");
+        throw std::runtime_error("No port has been set");
     }
 
     this->port = std::make_unique<QSerialPort>(this->portname.c_str());
@@ -93,7 +93,7 @@ std::string SerialInterface::get_board_info() {
  */
 QByteArray SerialInterface::read_block(unsigned int sector_addr) {
     try {
-        std::string command = (boost::format("RDBK%04X") % sector_addr).str();
+        std::string command = QString("RDBK%1").arg(sector_addr, 4, 16, QChar('0')).toStdString();
         QByteArray response_data = this->send_command_capture_response(command, 0x100);
 
         return response_data;
@@ -109,7 +109,7 @@ QByteArray SerialInterface::read_block(unsigned int sector_addr) {
  */
 void SerialInterface::erase_sector(unsigned int sector_id) {
     try {
-        std::string command = (boost::format("ESST%04X") % (unsigned int)sector_id).str();
+        std::string command = QString("ESST%1").arg(sector_id, 4, 16, QChar('0')).toStdString();
         auto response = this->send_command_capture_response(command, 2);
         uint16_t nrcycles = 0;
         memcpy((void*)&nrcycles, (void*)&response.data()[0], 2);
@@ -139,7 +139,7 @@ void SerialInterface::burn_block(unsigned int sector_addr, const QByteArray& dat
         qDebug() << QString("Expecting checksum: 0x%1").arg(checksum, 2, 16).toStdString().c_str();
 
         // construct command
-        std::string command = (boost::format("WRBK%04X") % sector_addr).str();
+        std::string command = QString("WRBK%1").arg(sector_addr, 4, 16, QChar('0')).toStdString();
 
         // send command to serial interface
         this->send_command(command);
@@ -193,7 +193,7 @@ uint16_t SerialInterface::get_chip_id() {
  */
 void SerialInterface::write_address(uint16_t address, uint8_t value) {
     try {
-        std::string command = (boost::format("WR%04X%02X") % (unsigned int)address % (unsigned int)value).str();
+        std::string command = QString("WR%1%2").arg(address, 2, 16, QChar('0')).arg(value, 2, 16, QChar('0')).toStdString();
         this->send_command(command);
 
     }  catch (std::exception& e) {
@@ -265,7 +265,7 @@ uint32_t SerialInterface::get_variable_eeprom(uint16_t addr) {
     uint32_t value = 0;
 
     for(int i=0; i<4; i++) {
-        std::string command = (boost::format("RBEP%04X") % (addr+i)).str();
+        std::string command = QString("RBEP%1").arg(addr+i, 4, 16, QChar('0')).toStdString();
         auto response = this->send_command_capture_response(command.c_str(), 1);
 
         // little endian encoding

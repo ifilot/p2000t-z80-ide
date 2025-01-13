@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     // set main VBoxLayout
     QHBoxLayout* top_layout = new QHBoxLayout();
-    top_layout->setMargin(5);
+    //top_layout->setMargin(5);
     w->setLayout(top_layout);
 
     //-------------------------------------------------------------------------
@@ -33,13 +33,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     layout_text_edit->addWidget(this->search_widget);
     connect(this->search_widget, SIGNAL(search()), this, SLOT(slot_search_code()));
 
-    QShortcut *shortcut_tab_next = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown), this->code_tabs);
+    QShortcut *shortcut_tab_next = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_PageDown), this->code_tabs);
     connect(shortcut_tab_next, SIGNAL(activated()), this, SLOT(slot_toggletab_forward()));
 
-    QShortcut *shortcut_tab_prev = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp), this->code_tabs);
+    QShortcut *shortcut_tab_prev = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_PageUp), this->code_tabs);
     connect(shortcut_tab_prev, SIGNAL(activated()), this, SLOT(slot_toggletab_backward()));
 
-    QShortcut *shortcut_tab_close = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_W), this->code_tabs);
+    QShortcut *shortcut_tab_close = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_W), this->code_tabs);
     connect(shortcut_tab_close, SIGNAL(activated()), this, SLOT(slot_close_tab()));
 
     //-------------------------------------------------------------------------
@@ -201,7 +201,7 @@ void MainWindow::build_menu() {
     // find
     QAction *action_search = new QAction(menuEdit);
     action_search->setText(tr("Search"));
-    action_search->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F));
+    action_search->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_F));
     menuEdit->addAction(action_search);
     connect(action_search, SIGNAL(triggered()), this->search_widget, SLOT(show_search_widget()));
 
@@ -219,21 +219,21 @@ void MainWindow::build_menu() {
     QAction *action_compile = new QAction(menuBuild);
     action_compile->setText(tr("Compile"));
     menuBuild->addAction(action_compile);
-    action_compile->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
+    action_compile->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_B));
     connect(action_compile, &QAction::triggered, this, &MainWindow::slot_compile);
 
     // Run
     QAction *action_run = new QAction(menuBuild);
     action_run->setText(tr("Run"));
     menuBuild->addAction(action_run);
-    action_run->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
+    action_run->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_R));
     connect(action_run, &QAction::triggered, this, &MainWindow::slot_run);
 
     // Run machine code as CAS file
     QAction *action_run_mcode_as_cas = new QAction(menuBuild);
     action_run_mcode_as_cas->setText(tr("Run machine code as CAS"));
     menuBuild->addAction(action_run_mcode_as_cas);
-    //action_run_mcode_as_cas->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
+    //action_run_mcode_as_cas->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_R));
     connect(action_run_mcode_as_cas, &QAction::triggered, this, &MainWindow::slot_run_mcode_as_cas);
 
     // quit
@@ -742,7 +742,7 @@ CodeEditor* MainWindow::new_code_editor() {
     // set tab stop
     const int tabStop = 4;
     QFontMetrics metrics(font);
-    code_editor->setTabStopWidth(tabStop * metrics.width(' '));
+    //code_editor->setTabStopWidth(tabStop * metrics.width(' '));
     this->code_tabs->addTab(code_editor, "new");
     //connect(this->code_editor, SIGNAL(textChanged()), this, SLOT(slot_editor_onchange()));
 

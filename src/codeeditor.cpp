@@ -1,8 +1,5 @@
 #include "codeeditor.h"
 
-#include <QPainter>
-#include <QTextBlock>
-
 /**
  * @brief Custom class for code editing
  * @param parent
@@ -19,10 +16,10 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent) {
     highlightCurrentLine();
 
     // create shortcuts
-    QShortcut *shortcuthome = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Home), this);
+    QShortcut *shortcuthome = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_Home), this);
     QObject::connect(shortcuthome, SIGNAL(activated()), this, SLOT(home()));
 
-    QShortcut *shortcutend = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_End), this);
+    QShortcut *shortcutend = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_End), this);
     QObject::connect(shortcutend, SIGNAL(activated()), this, SLOT(end()));
 }
 
@@ -140,7 +137,7 @@ void CodeEditor::verticalLinePaintEvent(QPaintEvent *event) {
     pen.setStyle(Qt::DashLine);
 
     QPainter painter(this->viewport()); // note we use viewport as its the one that actually draws
-    painter.setRenderHint(QPainter::HighQualityAntialiasing, true);
+    //painter.setRenderHint(QPainter::HighQualityAntialiasing, true);
     painter.setPen(pen);
     //painter.drawLine(COLWIDTH, 0, COLWIDTH, this->viewport()->height());
     painter.drawLine(COLWIDTH * 2, 0, COLWIDTH * 2, this->viewport()->height());

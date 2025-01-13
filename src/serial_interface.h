@@ -26,13 +26,14 @@
 #include <QDateTime>
 #include <QDebug>
 
-#include <boost/format.hpp>
 #include <string>
 #include <iostream>
 #include <exception>
 #include <vector>
 #include <unordered_map>
 #include <chrono>
+#include <exception>
+
 
 /**
  * @brief Interface class handling serial communication
